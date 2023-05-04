@@ -19,6 +19,7 @@
     <modules>
         <module>Grpc-ProtoBuf</module>
         <module>Grpc-Service-Provider</module>
+        <module>Grpc-Service-Consumer</module>
     </modules>
 
     <properties>

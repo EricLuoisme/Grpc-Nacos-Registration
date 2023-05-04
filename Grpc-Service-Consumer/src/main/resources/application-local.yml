@@ -1,0 +1,5 @@
+grpc:
+  cared:
+    # input lower case
+    grpc-server-names:
+      - "grpc-service-provider"
