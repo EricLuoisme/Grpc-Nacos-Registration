@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+// 对每个message和service都生成单独的java实体
+option java_multiple_files = true;
+// 生成允许外部调用的service
+option java_generic_services = true;
+option java_package = "com.own.grpc.protos";
+option java_outer_classname = "RemoteRpcServiceProto";
+
+service RemoteRpcService {
+
+  rpc getEmployees(EmptyRequest) returns (RpcEmployees) ;
+
+  rpc getEmployeeStream(IdRequest) returns (stream RpcEmployee) ;
+
+  rpc getBidEmployeeStream(stream RpcEmployee) returns (stream RpcEmployee) ;
+}
+
+message EmptyRequest {}
+
+message IdRequest {
+  int32 id = 1;
+}
+
+message RpcEmployee {
+  int32 id = 1;
+  string name = 2;
+  float salary = 3;
+}
+
+message RpcEmployees {
+  repeated RpcEmployee employee = 1;
+}

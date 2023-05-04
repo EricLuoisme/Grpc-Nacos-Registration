@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+// for the steps -> protobuf:compile (get proto msg) -> mvn clean install (get service stub)
+
+option java_multiple_files = true;
+option java_generic_services = true;
+option java_package = "com.own.grpc.protos";
+option java_outer_classname = "SimpleRpcServiceProto";
+
+service SimpleRpcService {
+
+  rpc getHello(HelloRequest) returns (HelloResponse) ;
+}
+
+message HelloRequest {
+  string name = 1;
+  int32 time = 2;
+}
+
+message HelloResponse {
+  string greeting = 1;
+}
