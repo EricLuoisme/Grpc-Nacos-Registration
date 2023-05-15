@@ -1,4 +1,4 @@
-package com.own.grpc.consumer.config;
+package com.own.grpc.provider.config;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Component
-public class CustomSmartLifecycle implements SmartLifecycle {
+public class SmartLifecycleImpl implements SmartLifecycle {
 
     private final AtomicBoolean runningFlag = new AtomicBoolean(false);
 
