@@ -7,7 +7,6 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Component;
@@ -20,34 +19,36 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Component
 public class SmartLifecycleImpl implements SmartLifecycle {
 
-    private final AtomicBoolean runningFlag = new AtomicBoolean(false);
-
     @Value("${spring.application.name}")
     private String applicationName;
 
-    @Value("${server.port")
+    @Value("${server.port}")
     private int port;
 
+    private final AtomicBoolean runningFlag = new AtomicBoolean(false);
 
-    @Autowired
-    private NacosWatch nacosWatch;
+    private final NacosWatch nacosWatch;
 
-    @Autowired
-    private NacosServiceManager serviceManager;
+    private final NacosServiceManager serviceManager;
 
-    @Autowired
-    private NacosDiscoveryProperties discoveryProperties;
+    private final NacosDiscoveryProperties discoveryProperties;
+
+    public SmartLifecycleImpl(NacosWatch nacosWatch, NacosServiceManager serviceManager, NacosDiscoveryProperties discoveryProperties) {
+        this.nacosWatch = nacosWatch;
+        this.serviceManager = serviceManager;
+        this.discoveryProperties = discoveryProperties;
+    }
 
 
     @Override
     public void start() {
-        log.info(">>> [CustomSmartLifecycle] start embed custom lifecycle logic");
+        log.info(">>> [SmartLifecycleImpl] start lifecycle logic");
         runningFlag.set(true);
     }
 
     @Override
     public void stop() {
-        log.info("<<< [CustomSmartLifecycle] stop embed custom lifecycle logic");
+        log.info("<<< [SmartLifecycleImpl] stop lifecycle logic");
         runningFlag.set(false);
         nacosWatch.stop(); // stop Nacos' watching thread
         try {
@@ -59,7 +60,7 @@ public class SmartLifecycleImpl implements SmartLifecycle {
             namingService.deregisterInstance(applicationName, instance);
             namingService.shutDown();
         } catch (UnknownHostException | NacosException e) {
-            log.error("<<< [CustomSmartLifecycle] stop with error", e);
+            log.error("<<< [SmartLifecycleImpl] stop with error", e);
         }
     }
 
