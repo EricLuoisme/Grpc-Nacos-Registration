@@ -10,9 +10,9 @@ import com.own.grpc.consumer.stub.listener.AllInstanceEventListener;
 import io.grpc.stub.AbstractStub;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class GrpcStubHolder {
@@ -22,7 +22,7 @@ public class GrpcStubHolder {
 
     public GrpcStubHolder(GrpcCaredConfig config, NacosServiceManager serviceManager, NacosDiscoveryProperties discoveryProperties) {
         // init
-        grpcStubIpMap = new HashMap<>();
+        grpcStubIpMap = new ConcurrentHashMap<>();
         NamingService namingService = serviceManager.getNamingService(discoveryProperties.getNacosProperties());
         AllInstanceEventListener eventListener = new AllInstanceEventListener(grpcStubIpMap, config);
         config.getGrpcServerNames().forEach(serviceName -> {
