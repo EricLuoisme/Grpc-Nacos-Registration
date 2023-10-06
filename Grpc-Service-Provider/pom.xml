@@ -12,7 +12,10 @@
     <artifactId>Grpc-Service-Provider</artifactId>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <!-- project dependencies -->
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.8.RELEASE</spring-cloud-alibaba.version>
         <grpcServer.ver>2.14.0.RELEASE</grpcServer.ver>
@@ -72,7 +75,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <!-- Undertow -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
