@@ -25,7 +25,8 @@ public class AllInstanceEventListener extends Subscriber<InstancesChangeEvent> {
     private final Set<String> caredServiceSet;
 
 
-    public AllInstanceEventListener(Map<String, Map<String, ? super AbstractStub<?>>> grpcStubIpMap, GrpcCaredConfig config) {
+    public AllInstanceEventListener(Map<String, Map<String, ? super AbstractStub<?>>> grpcStubIpMap,
+                                    GrpcCaredConfig config) {
         this.grpcStubIpMap = grpcStubIpMap;
         this.caredServiceSet = new HashSet<>(config.getGrpcServerNames());
     }

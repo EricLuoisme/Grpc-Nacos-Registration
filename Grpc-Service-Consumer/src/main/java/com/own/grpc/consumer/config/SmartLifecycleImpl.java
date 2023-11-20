@@ -6,6 +6,7 @@ import com.alibaba.cloud.nacos.discovery.NacosWatch;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.SmartLifecycle;
@@ -17,6 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class SmartLifecycleImpl implements SmartLifecycle {
 
     @Value("${spring.application.name}")
@@ -32,12 +34,6 @@ public class SmartLifecycleImpl implements SmartLifecycle {
     private final NacosServiceManager serviceManager;
 
     private final NacosDiscoveryProperties discoveryProperties;
-
-    public SmartLifecycleImpl(NacosWatch nacosWatch, NacosServiceManager serviceManager, NacosDiscoveryProperties discoveryProperties) {
-        this.nacosWatch = nacosWatch;
-        this.serviceManager = serviceManager;
-        this.discoveryProperties = discoveryProperties;
-    }
 
 
     @Override
